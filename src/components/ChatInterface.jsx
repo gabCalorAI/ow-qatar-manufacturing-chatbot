@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import DOMPurify from 'dompurify';
+import { useToast } from './Toast';
 
 // ============================================
 // HELPERS & MOCK DATA
@@ -278,6 +280,7 @@ const SmartFollowUps = ({ suggestions, onSelect }) => (
 
 const GenerateDeckButton = ({ topic, context, isDemo, webhookUrl }) => {
     const [status, setStatus] = useState('idle'); // idle, generating, done
+    const { addToast } = useToast();
 
     const handleGenerate = async () => {
         setStatus('generating');
@@ -303,10 +306,14 @@ const GenerateDeckButton = ({ topic, context, isDemo, webhookUrl }) => {
             a.href = url;
             a.download = `${topic.replace(/[^a-z0-9]/gi, '_')}_Analysis.pptx`;
             a.click();
+            a.click();
             setStatus('done');
+            addToast("Deck generated successfully!", "success");
         } catch (e) {
             console.error(e);
+            console.error(e);
             setStatus('idle');
+            addToast("Failed to generate deck. Please try again.", "error");
         }
     };
 
@@ -350,7 +357,10 @@ const Message = ({ role, content, layers, sources, followUps, onFollowUp, showLa
         let formatted = text.replace(/\*\*([^*]+)\*\*/g, '<strong class="text-primary font-semibold">$1</strong>');
         formatted = formatted.replace(/\n\n/g, '</p><p class="mb-3 last:mb-0">');
         formatted = formatted.replace(/\n/g, '<br/>');
-        return `<p class="mb-3 last:mb-0">${formatted}</p>`;
+        return DOMPurify.sanitize(`<p class="mb-3 last:mb-0">${formatted}</p>`, { 
+            ADD_ATTR: ['class', 'target'], 
+            ADD_TAGS: ['p', 'strong', 'br'] 
+        });
     };
 
     return (
@@ -422,6 +432,7 @@ export default function ChatInterface({ config, showAgentLayers = true, onToggle
     const [showWelcome, setShowWelcome] = useState(true);
     const [isListening, setIsListening] = useState(false);
     const messagesEndRef = useRef(null);
+    const { addToast } = useToast();
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -471,6 +482,7 @@ export default function ChatInterface({ config, showAgentLayers = true, onToggle
                 // Fallback
                 responseData = getResponseData(text);
                 responseData.data.executive = "Error connecting to backend. Showing fallback data.\n\n" + responseData.data.executive;
+                addToast("Connection error. Using offline mode.", "error");
             }
         }
 
@@ -536,7 +548,7 @@ export default function ChatInterface({ config, showAgentLayers = true, onToggle
                     {isLoading && (
                         <div className="flex gap-4 mb-6 animate-fadeIn items-end">
                             <div className="relative group flex-shrink-0">
-                                <div className="absolute -inset-2 bg-gradient-to-r from-primary to-purple-600 rounded-xl blur-md opacity-40 animate-pulse" />
+                                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-xl blur opacity-40 animate-pulse" />
                                 <div className="relative w-10 h-10 bg-black rounded-xl flex items-center justify-center border border-white/10 shadow-lg overflow-hidden">
                                     <img src="/dhow-mark.png" alt="Dhow" className="w-full h-full object-cover" />
                                 </div>
