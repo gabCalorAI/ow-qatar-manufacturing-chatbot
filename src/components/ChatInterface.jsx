@@ -369,7 +369,7 @@ const Message = ({ role, content, layers, sources, followUps, onFollowUp, showLa
                 <div className="relative group flex-shrink-0">
                     <div className="absolute -inset-2 bg-gradient-to-r from-primary to-purple-600 rounded-xl blur-md opacity-40 group-hover:opacity-60 transition duration-500" />
                     <div className="relative w-10 h-10 bg-black rounded-xl flex items-center justify-center border border-white/10 shadow-lg overflow-hidden">
-                        <img src="/dhow-mark.png" alt="Dhow" className="w-full h-full object-cover" />
+                        <img src={`${import.meta.env.BASE_URL}dhow-mark.png`} alt="Dhow" className="w-full h-full object-cover" />
                     </div>
                 </div>
             )}
@@ -507,7 +507,7 @@ export default function ChatInterface({ config, showAgentLayers = true, onToggle
                     <div className="relative group mb-10">
                          <div className="absolute -inset-1 bg-gradient-to-br from-primary via-purple-500 to-blue-600 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
                          <div className="w-[100px] h-[100px] bg-black rounded-[24px] flex items-center justify-center border border-white/10 shadow-2xl relative z-10 overflow-hidden">
-                            <img src="/dhow-mark.png" alt="Dhow Logo" className="w-full h-full object-cover" />
+                            <img src={`${import.meta.env.BASE_URL}dhow-mark.png`} alt="Dhow Logo" className="w-full h-full object-cover" />
                          </div>
                     </div>
                     <h1 className="font-display font-medium text-4xl text-white mb-3 tracking-tight">Dhow</h1>
@@ -550,7 +550,7 @@ export default function ChatInterface({ config, showAgentLayers = true, onToggle
                             <div className="relative group flex-shrink-0">
                                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-xl blur opacity-40 animate-pulse" />
                                 <div className="relative w-10 h-10 bg-black rounded-xl flex items-center justify-center border border-white/10 shadow-lg overflow-hidden">
-                                    <img src="/dhow-mark.png" alt="Dhow" className="w-full h-full object-cover" />
+                                    <img src={`${import.meta.env.BASE_URL}dhow-mark.png`} alt="Dhow" className="w-full h-full object-cover" />
                                 </div>
                             </div>
                             <div className="flex items-center gap-1.5 p-5 glass-panel rounded-[4px_24px_24px_24px]">

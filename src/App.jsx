@@ -33,7 +33,7 @@ function App() {
                     <div className="relative group cursor-pointer">
                         <div className="absolute -inset-2 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-500" />
                         <div className="relative w-12 h-12 bg-black rounded-xl flex items-center justify-center border border-white/10 shadow-2xl overflow-hidden">
-                            <img src="/dhow-mark.png" alt="Dhow" className="w-full h-full object-cover" />
+                            <img src={`${import.meta.env.BASE_URL}dhow-mark.png`} alt="Dhow" className="w-full h-full object-cover" />
                         </div>
                     </div>
                     <div>
